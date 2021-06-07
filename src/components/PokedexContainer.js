@@ -157,7 +157,7 @@ const PokedexContainer = () => {
 						handleSearchByType={setQueryByType}
 						typeOptions={typeOptions}
 					/>
-					{pokemonsList && (
+					{pokemonsList.length > 0 && (
 						<div>
 							<Pokedex pokemonsList={pokemonsList} />{' '}
 							<Pagination
