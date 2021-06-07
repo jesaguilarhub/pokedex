@@ -1,4 +1,4 @@
-const Pagination = ({ total, onPageChange }) => {
+const Pagination = ({ total, onPageChange, current }) => {
 	let map = [];
 	for (let i = 0; i < total; i++) {
 		map = [
@@ -15,11 +15,14 @@ const Pagination = ({ total, onPageChange }) => {
 				justifyContent : 'center'
 			}}
 		>
-			{map.map((value) => (
-				<button key={value} onClick={() => onPageChange(value)}>
-					{value}
-				</button>
-			))}
+			{map.map((value) => {
+				const bg = value === current ? 'red' : '';
+				return (
+					<button key={value} onClick={() => onPageChange(value)} style={{ backgroundColor: bg }}>
+						{value}
+					</button>
+				);
+			})}
 		</div>
 	);
 };

@@ -8,7 +8,6 @@ import SearchPokemon from './SearchPokemon';
 import Pokedex from '../views/Pokedex';
 import PokemonContainer from './PokemonContainer';
 import PokemonItemContainer from './PokemonItemContainer';
-import PokemonItem from './PokemonItem';
 import Pagination from './Pagination';
 import PokemonUniqueItem from './PokemonUniqueItem';
 const colors = {
@@ -161,7 +160,11 @@ const PokedexContainer = () => {
 					{pokemonsList && (
 						<div>
 							<Pokedex pokemonsList={pokemonsList} />{' '}
-							<Pagination total={Math.ceil(pokemons.length / 4)} onPageChange={handlePageChanged} />
+							<Pagination
+								total={Math.ceil(pokemons.length / 4)}
+								onPageChange={handlePageChanged}
+								current={currentPage}
+							/>
 						</div>
 					)}
 					{pokemon && (
