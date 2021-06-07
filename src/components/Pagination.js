@@ -1,9 +1,19 @@
 const Pagination = ({ total, onPageChange, current }) => {
 	let map = [];
-	for (let i = 0; i < total; i++) {
+	let start = current - 4;
+	let end = current + 5;
+	if (start < 1) {
+		end += Math.abs(start) + 1;
+		start = 1;
+	}
+	else if (end > total) {
+		start -= end - total;
+		end = total;
+	}
+	for (let i = start; i <= end; i++) {
 		map = [
 			...map,
-			i + 1
+			i
 		];
 	}
 
