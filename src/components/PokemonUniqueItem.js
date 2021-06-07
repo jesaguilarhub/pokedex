@@ -1,11 +1,11 @@
 import { Link } from 'react-router-dom';
-const PokemonItem = ({ url, pokemonName, src, types, hp, attack, defense, speed, color }) => {
+const PokemonUniqueItem = ({ url, pokemonName, src, types, hp, attack, defense, speed, color }) => {
 	return (
 		<div
 			style={{
 				backgroundColor : color,
 				height          : 500,
-				width           : '25%',
+				width           : '100%',
 				margin          : 20,
 				borderRadius    : '10px'
 			}}
@@ -30,4 +30,4 @@ const PokemonItem = ({ url, pokemonName, src, types, hp, attack, defense, speed,
 	);
 };
 
-export default PokemonItem;
+export default PokemonUniqueItem;

@@ -9,7 +9,8 @@ import Pokedex from '../views/Pokedex';
 import PokemonContainer from './PokemonContainer';
 import PokemonItemContainer from './PokemonItemContainer';
 import PokemonItem from './PokemonItem';
-
+import Pagination from './Pagination';
+import PokemonUniqueItem from './PokemonUniqueItem';
 const colors = {
 	normal   : '#ffc8dd',
 	fighting : '#edf6f9',
@@ -58,6 +59,31 @@ const PokedexContainer = () => {
 		pokemon,
 		setPokemon
 	] = useState(null);
+
+	const [
+		pokemonsOnPage,
+		setPokemonsOnPage
+	] = useState([]);
+	const [
+		currentPage,
+		setCurrentPage
+	] = useState(1);
+
+	useEffect(
+		() => {
+			if (currentPage === 1) {
+				setPokemonsOnPage(pokemons.slice(0, 4));
+				return;
+			}
+			const offset = currentPage * 4;
+			setPokemonsOnPage(pokemons.slice(offset - 4, offset));
+		},
+		[
+			currentPage,
+			pokemons
+		]
+	);
+
 	useEffect(() => {
 		getPokemonTypes().then(({ results }) => {
 			setPokemonTypes(results.map((pokemonType) => pokemonType.name));
@@ -94,6 +120,10 @@ const PokedexContainer = () => {
 		]
 	);
 
+	const handlePageChanged = (page) => {
+		setCurrentPage(page);
+	};
+
 	const typeOptions = pokemonTypes.map((type, idx) => {
 		return (
 			<option key={idx} value={type}>
@@ -102,7 +132,7 @@ const PokedexContainer = () => {
 		);
 	});
 
-	const pokemonsList = pokemons.map((pokemon, idx) => {
+	const pokemonsList = pokemonsOnPage.map((pokemon, idx) => {
 		return <PokemonItemContainer key={idx} url={url} pokemonUrl={pokemon.pokemon.url} />;
 	});
 	return (
@@ -128,13 +158,18 @@ const PokedexContainer = () => {
 						handleSearchByType={setQueryByType}
 						typeOptions={typeOptions}
 					/>
-					{pokemonsList && <Pokedex pokemonsList={pokemonsList} />}
+					{pokemonsList && (
+						<div>
+							<Pokedex pokemonsList={pokemonsList} />{' '}
+							<Pagination total={Math.ceil(pokemons.length / 4)} onPageChange={handlePageChanged} />
+						</div>
+					)}
 					{pokemon && (
-						<PokemonItem
+						<PokemonUniqueItem
 							url={url}
 							pokemonName={pokemon.name}
 							src={pokemon.sprites.other['official-artwork'].front_default}
-							types={pokemon.types[0].type.name}
+							types={pokemon.types.map((type) => type.type.name).join(', ')}
 							hp={pokemon.stats[0].base_stat}
 							attack={pokemon.stats[1].base_stat}
 							defense={pokemon.stats[2].base_stat}

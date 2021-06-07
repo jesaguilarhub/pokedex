@@ -41,14 +41,14 @@ const PokemonItemContainer = ({ url, pokemonUrl }) => {
 		]
 	);
 	return (
-		<div>
+		<>
 			{pokemon && (
 				<PokemonItem
 					key={pokemon.name}
 					url={url}
 					pokemonName={pokemon.name}
 					src={pokemon.sprites.other['official-artwork'].front_default}
-					types={pokemon.types[0].type.name}
+					types={pokemon.types.map((type) => type.type.name).join(', ')}
 					hp={pokemon.stats[0].base_stat}
 					attack={pokemon.stats[1].base_stat}
 					defense={pokemon.stats[2].base_stat}
@@ -56,7 +56,7 @@ const PokemonItemContainer = ({ url, pokemonUrl }) => {
 					color={colors[pokemon.types[0].type.name]}
 				/>
 			)}
-		</div>
+		</>
 	);
 };
 
