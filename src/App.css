@@ -14,7 +14,7 @@
 }
 
 .App-header {
-  background-color: #282c34;
+  background: url('https://image.winudf.com/v2/image/Y29tLmhkcG9rZW1vbi53YWxscGFwZXJfc2NyZWVuXzNfMTUzMDE2NzkzOV8wNDk/screen-3.jpg?fakeurl=1&type=.jpg') no-repeat fixed center;
   min-height: 100vh;
   display: flex;
   flex-direction: column;
